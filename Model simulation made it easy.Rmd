@@ -1,0 +1,15 @@
+# Model evaluation makes it easy
+
+*Residuals-based method*
+
+ (ref: Developing tools to evaluate non-linear mixed effect models: 20 years on the npde adventure)
+ 
+-	Prediction error (difference between the true value and the prediction, bias)
+-	RMSE? (the magnitude of PE, imprecision)
+  Shortcomings:
+	  - Prediction error of population predictions or individual predictions?
+  Population residuals
+o	Individual residuals, more focused on evaluation of the residual error model
+·	Potential heteroscedasticity in the residual error model (magnitude of residuals varies across the range of observations)
+Solution: 
+·	weighted residuals (WRES), weighting the residuals using the expected variance of the prediction
