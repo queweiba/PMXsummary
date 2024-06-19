@@ -11,7 +11,7 @@
 
 
 
-<title>Preface.knit</title>
+<title>Model-simulation-made-it-easy.knit</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -352,32 +352,115 @@ display: none;
 </div>
 
 
-<div id="preface" class="section level2">
-<h2># Preface</h2>
-<p>To really understand and develop a good model. There are some parts
-of knowledge that you need to know, which are related to different phase
-of modeling building process. All these models form the equation of
-likelihood function of each observation in a popPK analysis.</p>
-<ol style="list-style-type: decimal">
-<li><p>Structural model In most cases, some information is available
-beforehand about the structural model based on knowledge on the
-underlying system. E.g., PK equations</p></li>
-<li><p>Inter-individual variability: Information about IIV can also be
-available in terms of physiological features of the study population
-such as polymorphism in metabolic enzymes or age-related alterations of
-particular organs.</p></li>
-<li><p>residual variability That part accounts for all remaining
-variability which is not explained by the structural or
-parameter-variability model parts. This RUV arises for example from
-physiological intra-individual variation, assay error, errors in
-independent variables and model misspecification.</p></li>
-</ol>
-<p>All of this will form the mathematical formula that are assessed to
-evaluate the model fit. In NONMEM, The Nonmem methodology was based on
-maximum likelihood methods that use various approximations to compute
-and minimize the objective function (-2 log likelihood of the model
-parameters given the data) in order to estimate population PK and PK-PD
-model parameters.</p>
+<hr />
+<hr />
+<div id="model-evaluation-makes-it-easy" class="section level1">
+<h1>Model evaluation makes it easy</h1>
+<div id="residuals-based-method" class="section level2">
+<h2>Residuals-based method</h2>
+<p>(ref: Developing tools to evaluate non-linear mixed effect models: 20
+years on the npde adventure)</p>
+<div id="prediction-error-difference-between-the-true-value-and-the-prediction-bias" class="section level3">
+<h3>Prediction error (difference between the true value and the
+prediction, bias)</h3>
+<ul>
+<li>RMSE? (the magnitude of PE, imprecision)</li>
+</ul>
+<p>Shortcomings: - Prediction error of population predictions or
+individual predictions? Population residuals Individual residuals, more
+focused on evaluation of the residual error model - Potential
+heteroscedasticity in the residual error model (magnitude of residuals
+varies across the range of observations)</p>
+<p>Solution: - weighted residuals (WRES), weighting the residuals using
+the expected variance of the prediction</p>
+</div>
+<div id="wres" class="section level3">
+<h3>WRES</h3>
+<p><span class="math display">\[
+   WRES=\frac{\vec{y_{i}}-E_{FO}(\vec{y_{i}})}{
+\sqrt{Cov_{FO}(\vec{y_{i})}}}
+\]</span> The <span class="math inline">\(WRES\)</span> should be <span class="math inline">\(N(0,1)\)</span> as long as the model adequately
+describes the data and the model linearlization using FO is adequate to
+describe the model.</p>
+<p>Shortcomings: the performance of WRES for model evaluation in NLME
+has been consistently shown to be poor: - bias introduced by the
+first-order approximation, because WRES are calculated using the FO
+approximation. This is the case even if the model development process
+has taken place using the FOCE methods. - the true distribution is
+unknown.</p>
+<p>Solution: CWRES</p>
+</div>
+<div id="cwres" class="section level3">
+<h3>CWRES</h3>
+<p>A model diagnostics for the FOCE method</p>
+<p><span class="math display">\[
+   CWRES=\frac{\vec{y_{i}}-E_{FOCE}(\vec{y_{i}})}{
+\sqrt{Cov_{FOCE}(\vec{y_{i})}}}
+\]</span></p>
+<p>The <span class="math inline">\(CWRES\)</span> are computed in the
+same manner as the <span class="math inline">\(WRES\)</span> but using
+the FOCE approximation to the model.</p>
+</div>
+</div>
+<div id="simulation-based-method" class="section level2">
+<h2>Simulation-based method</h2>
+<p><em>Common problems:</em> - <em>The choice of bins</em>. Within a bin
+there should always be an even distribution of the observation. If one
+bin has a series of observations that are outliers, then the
+observations will lie in either of the two ends of the prediction
+interval, making the plot a bit problematic. - <em>The dose
+adjustment</em>. the random variability is always randomly sampled.
+While in the real clinical setting the next dose is aimed for - <em>The
+different covariate</em></p>
+<div id="vpc" class="section level3">
+<h3>VPC</h3>
+<p>A a <span style="color: red;">within-bin comparison</span> of the
+empirical distribution of the observations with the corresponding
+model-based predictions. Percentiles of the simulated data are compared
+to the corresponding percentiles of the observed data. The percentiles
+are calculated either for each unique value of the independent (x-axis)
+variable or for a bin across the independent variable. By calculating
+the percentiles of interest for each of the simulated replicates of the
+original dataset design, a <span style="color: red;">nonparametric
+confidence interval</span> can be generated for the predicted
+percentiles.</p>
+<p>There are three basic types of VPC. - scatter VPC This shows the
+observations along with simple prediction intervals</p>
+<ul>
+<li><p>percentile VPC This summarizes the distribution of observations
+with observation intervals so they can directly compare the prediction
+intervals and the observed intervals.</p></li>
+<li><p>confidence interval VPC This type shows the 95% CI interval
+around each of the prediction intervals obtained by simulation.</p></li>
+</ul>
+<p>Problems: if the VPC is performed in dataset with varied doses and
+varied time, the bin selected and the prediction interval will not be
+representative for the dataset included in the bin. Whenever the
+predictions within a bin differ largely due to different values of other
+independent variables (e.g, dose, covariates), the diagnosis may be
+hampered or misleading. In such cases, only a part of the variability
+observed in the a traditional VPC will be caused by the random effect.
+Apart from making it difficult to use these VPCs to diagnose the random
+effects, this can also lower the power of detecting a model
+misspecification in the structural model.</p>
+</div>
+<div id="pcvpc" class="section level3">
+<h3>pcVPC</h3>
+<p>A prediction corrected VPC that normalized the observation and
+prediction with the population prediction values. How to draw it?</p>
+<ul>
+<li>First to calculate the median of the predcitons per bin (<span class="math inline">\(PRED_{bin}\)</span>).</li>
+<li>Then for the simulation dataset calculation the PRED relative to the
+<span class="math inline">\(PRED_{bin}\)</span>. Then for each DV we
+need to multiply the fold difference.</li>
+<li>Then for the observation dataset calculate the PRED relative to the
+<span class="math inline">\(PRED_{bin}\)</span>, and for each DV we need
+to multiply the fold difference.</li>
+<li>The transformed simulations and observations are percentiles as the
+normal VPC</li>
+</ul>
+</div>
+</div>
 </div>
 
 

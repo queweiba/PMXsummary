@@ -1,15 +1,87 @@
+---
+
+
+---
+```{r setup, include=FALSE}
+color <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color,
+      x)
+  } else x
+}
+```
+
 # Model evaluation makes it easy
 
-*Residuals-based method*
+## Residuals-based method
 
  (ref: Developing tools to evaluate non-linear mixed effect models: 20 years on the npde adventure)
  
--	Prediction error (difference between the true value and the prediction, bias)
+### Prediction error (difference between the true value and the prediction, bias)
 -	RMSE? (the magnitude of PE, imprecision)
-  Shortcomings:
+
+Shortcomings:
 	  - Prediction error of population predictions or individual predictions?
-  Population residuals
-o	Individual residuals, more focused on evaluation of the residual error model
-·	Potential heteroscedasticity in the residual error model (magnitude of residuals varies across the range of observations)
+      Population residuals
+      Individual residuals, more focused on evaluation of the residual error model
+    - Potential heteroscedasticity in the residual error model (magnitude of residuals varies across the range of observations)
+    
 Solution: 
-·	weighted residuals (WRES), weighting the residuals using the expected variance of the prediction
+  -	weighted residuals (WRES), weighting the residuals using the expected variance of the prediction
+
+### WRES
+  
+$$
+   WRES=\frac{\vec{y_{i}}-E_{FO}(\vec{y_{i}})}{ \sqrt{Cov_{FO}(\vec{y_{i})}}}
+$$
+The $WRES$ should be $N(0,1)$ as long as the model adequately describes the data and the model linearlization using FO is adequate to describe the model.
+
+Shortcomings: the performance of WRES for model evaluation in NLME has been consistently shown to be poor:
+- bias introduced by the first-order approximation, because WRES are calculated using the FO approximation. This is the case even if the model development process has taken place using the FOCE methods.
+- the true distribution is unknown.
+
+Solution: CWRES
+
+### CWRES
+
+A model diagnostics for the FOCE method
+
+$$
+   CWRES=\frac{\vec{y_{i}}-E_{FOCE}(\vec{y_{i}})}{ \sqrt{Cov_{FOCE}(\vec{y_{i})}}}
+$$
+
+The $CWRES$ are computed in the same manner as the $WRES$ but using the FOCE approximation to the model.
+
+## Simulation-based method
+
+*Common problems:*
+- *The choice of bins*. Within a bin there should always be an even distribution of the observation. If one bin has a series of observations that are outliers, then the observations will lie in either of the two ends of the prediction interval, making the plot a bit problematic.
+- *The dose adjustment*. the random variability is always randomly sampled. While in the real clinical setting the next dose is aimed for
+- *The different covariate*
+
+### VPC
+
+A a `r color("within-bin comparison", "red")` of the empirical distribution of the observations with the corresponding model-based predictions. Percentiles of the simulated data are compared to the corresponding percentiles of the observed data. The percentiles are calculated either for each unique value of the independent (x-axis) variable or for a bin across the independent variable. By calculating the percentiles of interest for each of the simulated replicates of the original dataset design, a `r color("nonparametric confidence interval", "red")` can be generated for the predicted percentiles. 
+
+There are three basic types of VPC.
+- scatter VPC
+This shows the observations along with simple prediction intervals
+
+- percentile VPC
+This summarizes the distribution of observations with observation intervals so they can directly compare the prediction intervals and the observed intervals.
+
+- confidence interval VPC
+This type shows the 95% CI interval around each of the prediction intervals obtained by simulation.
+
+Problems: if the VPC is performed in dataset with varied doses and varied time, the bin selected and the prediction interval will not be representative for the dataset included in the bin. Whenever the predictions within a bin differ largely due to different values of other independent variables (e.g, dose, covariates), the diagnosis may be hampered or misleading. In such cases, only a part of the variability observed in the a traditional VPC will be caused by the random effect. Apart from making it difficult to use these VPCs to diagnose the random effects, this can also lower the power of detecting a model misspecification in the structural model.
+
+### pcVPC
+
+A prediction corrected VPC that normalized the observation and prediction with the population prediction values. How to draw it?
+
+- First to calculate the median of the predcitons per bin ($PRED_{bin}$).
+- Then for the simulation dataset calculation the PRED relative to the $PRED_{bin}$. Then for each DV we need to multiply the fold difference.
+- Then for the observation dataset calculate the PRED relative to the $PRED_{bin}$, and for each DV we need to multiply the fold difference.
+- The transformed simulations and observations are percentiles as the normal VPC
