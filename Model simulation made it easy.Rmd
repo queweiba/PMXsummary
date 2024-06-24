@@ -106,3 +106,33 @@ How to draw a NPC plot?
 Just as in a VPC plot, a trend in the NPC coverage plot would indicate a misspecification of the structural, interindividual variability, or residual error model (Supplementary Figure S9). 
 
 As NPC evaluates model misspecification on several PIs, it may provide additional information compared to the VPC, which only presents one selected PI. In addition, it compares each observation with its own simulated distribution, so normalization and stratification to handle the binning, as in the VPC, is not necessary. However, unlike VPC, which is a representation of observations and predictions vs. time, NPC loses the time dimension; therefore, it would not be able to point out at which time points the model overpredicted or underpredicted the data.
+
+### NPDE
+Individual comparisons of each observation with the corresponding model-based prediction. The idea is that the cdf of each observation can be seen as the prediction discrepancy that should follow U(0,1). However, there is no analytical solution for the function of cdf of the observation. Therefore, mento-carlo simulation based on the model was used to mimic the probability density of the observation. And the percentile of the observation in the simulations can be approximated as the cdf. Below are the steps:
+
+1. Predictive distribution function—generated using simulation of the model, k simulations for each observation have a normal distribution (x-axis: k simulations, y-axis: probability density) 
+
+2. Cumulative distribution function—prediction discrepancy, percentile of an observation in the predictive distribution (e.g., one observation is 50% percentile) (x-axis: observation, y-axis: cumulative probability) 
+
+3. Decorrelation, pd => pde, each observation has one pd/pde 
+
+4. For large number of simulation, pde of all observation should follow a uniform distribution U(0,1). (x-axis: pde, y-axis: probability density) 
+
+5. Normalized prediction distribution errors ( npde ): assume the cdf  comes from a standard normal distribution, and Inverse function of normal cumulative density to get the npde (Z values) 
+
+*INTERPRETATION OF NPDE*
+```{r npde,echo=FALSE, eval=TRUE}
+knitr::include_graphics("Figures/NPDE_example_figure.jpg")
+```
+
+Evaluation graphs using npde package (version 3.1).  
+
+Top: distribution of the npde shown as a histogram (left) or a QQ-plot (right), with the blue area representing the prediction intervals obtained using simulations under the theoretical N(0,1) distribution  
+
+Bottom: scatterplots of the npde versus the independent variable (left) and versus the predictions from the model (right). The prediction in the x-axis is obtained as the empirical mean of the corresponding simulations y  for each observation. 
+
+Dots: the dots representing the npde computed for this dataset.  
+
+Lines: The lines show the evolution of three empirical percentiles (2.5, 50 and 97.5) of the npde corresponding to the observation (dark grey) compared to the npde corresponding to the model predictions(Y in simulation) (light grey). we compute pd and npde for each simulated dataset and then calculate the 2.5, 50 and 97.5th percentile to obtain prediction bands around selected percentiles of the observed pd and npde.  
+
+The pink band corresponds to the prediction interval for the median of the npde (50th percentile) and the blue bands the prediction intervals for the 2.5 and 97.5th percentiles. 
