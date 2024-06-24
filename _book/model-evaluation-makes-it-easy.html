@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Model evaluation makes it easy | A Minimal Book Example</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Model evaluation makes it easy | A Minimal Book Example" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  <meta name="github-repo" content="rstudio/bookdown-demo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Model evaluation makes it easy | A Minimal Book Example" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::gitbook,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="John Doe" />
+
+
+<meta name="date" content="2024-06-24" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="references.html"/>
+<link rel="next" href="preface.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#usage"><i class="fa fa-check"></i><b>1.1</b> Usage</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#render-book"><i class="fa fa-check"></i><b>1.2</b> Render book</a></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#preview-book"><i class="fa fa-check"></i><b>1.3</b> Preview book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="chapter" data-level="2" data-path="model-evaluation-makes-it-easy.html"><a href="model-evaluation-makes-it-easy.html"><i class="fa fa-check"></i><b>2</b> Model evaluation makes it easy</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="model-evaluation-makes-it-easy.html"><a href="model-evaluation-makes-it-easy.html#residuals-based-method"><i class="fa fa-check"></i><b>2.1</b> Residuals-based method</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="model-evaluation-makes-it-easy.html"><a href="model-evaluation-makes-it-easy.html#prediction-error-difference-between-the-true-value-and-the-prediction-bias"><i class="fa fa-check"></i><b>2.1.1</b> Prediction error (difference between the true value and the prediction, bias)</a></li>
+<li class="chapter" data-level="2.1.2" data-path="model-evaluation-makes-it-easy.html"><a href="model-evaluation-makes-it-easy.html#wres"><i class="fa fa-check"></i><b>2.1.2</b> WRES</a></li>
+<li class="chapter" data-level="2.1.3" data-path="model-evaluation-makes-it-easy.html"><a href="model-evaluation-makes-it-easy.html#cwres"><i class="fa fa-check"></i><b>2.1.3</b> CWRES</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="model-evaluation-makes-it-easy.html"><a href="model-evaluation-makes-it-easy.html#simulation-based-method"><i class="fa fa-check"></i><b>2.2</b> Simulation-based method</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="model-evaluation-makes-it-easy.html"><a href="model-evaluation-makes-it-easy.html#vpc"><i class="fa fa-check"></i><b>2.2.1</b> VPC</a></li>
+<li class="chapter" data-level="2.2.2" data-path="model-evaluation-makes-it-easy.html"><a href="model-evaluation-makes-it-easy.html#pcvpc"><i class="fa fa-check"></i><b>2.2.2</b> pcVPC</a></li>
+<li class="chapter" data-level="2.2.3" data-path="model-evaluation-makes-it-easy.html"><a href="model-evaluation-makes-it-easy.html#npc-numerical-predictive-check"><i class="fa fa-check"></i><b>2.2.3</b> NPC Numerical predictive check</a></li>
+<li class="chapter" data-level="2.2.4" data-path="model-evaluation-makes-it-easy.html"><a href="model-evaluation-makes-it-easy.html#npde"><i class="fa fa-check"></i><b>2.2.4</b> NPDE</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="preface.html"><a href="preface.html"><i class="fa fa-check"></i><b>3</b> Preface</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">A Minimal Book Example</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="model-evaluation-makes-it-easy" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">Chapter 2</span> Model evaluation makes it easy<a href="model-evaluation-makes-it-easy.html#model-evaluation-makes-it-easy" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="residuals-based-method" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Residuals-based method<a href="model-evaluation-makes-it-easy.html#residuals-based-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>(ref: Developing tools to evaluate non-linear mixed effect models: 20 years on the npde adventure)</p>
+<div id="prediction-error-difference-between-the-true-value-and-the-prediction-bias" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Prediction error (difference between the true value and the prediction, bias)<a href="model-evaluation-makes-it-easy.html#prediction-error-difference-between-the-true-value-and-the-prediction-bias" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>RMSE? (the magnitude of PE, imprecision)</li>
+</ul>
+<p>Shortcomings:
+- Prediction error of population predictions or individual predictions?
+Population residuals
+Individual residuals, more focused on evaluation of the residual error model
+- Potential heteroscedasticity in the residual error model (magnitude of residuals varies across the range of observations)</p>
+<p>Solution:
+- weighted residuals (WRES), weighting the residuals using the expected variance of the prediction</p>
+</div>
+<div id="wres" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> WRES<a href="model-evaluation-makes-it-easy.html#wres" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[
+   WRES=\frac{\vec{y_{i}}-E_{FO}(\vec{y_{i}})}{ \sqrt{Cov_{FO}(\vec{y_{i})}}}
+\]</span>
+The <span class="math inline">\(WRES\)</span> should be <span class="math inline">\(N(0,1)\)</span> as long as the model adequately describes the data and the model linearlization using FO is adequate to describe the model.</p>
+<p>Shortcomings: the performance of WRES for model evaluation in NLME has been consistently shown to be poor:
+- bias introduced by the first-order approximation, because WRES are calculated using the FO approximation. This is the case even if the model development process has taken place using the FOCE methods.
+- the true distribution is unknown.</p>
+<p>Solution: CWRES</p>
+</div>
+<div id="cwres" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> CWRES<a href="model-evaluation-makes-it-easy.html#cwres" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A model diagnostics for the FOCE method</p>
+<p><span class="math display">\[
+   CWRES=\frac{\vec{y_{i}}-E_{FOCE}(\vec{y_{i}})}{ \sqrt{Cov_{FOCE}(\vec{y_{i})}}}
+\]</span></p>
+<p>The <span class="math inline">\(CWRES\)</span> are computed in the same manner as the <span class="math inline">\(WRES\)</span> but using the FOCE approximation to the model.</p>
+</div>
+</div>
+<div id="simulation-based-method" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Simulation-based method<a href="model-evaluation-makes-it-easy.html#simulation-based-method" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><em>Common problems:</em>
+- <em>The choice of bins</em>. Within a bin there should always be an even distribution of the observation. If one bin has a series of observations that are outliers, then the observations will lie in either of the two ends of the prediction interval, making the plot a bit problematic.
+- <em>The dose adjustment</em>. the random variability is always randomly sampled. While in the real clinical setting the next dose is aimed for
+- <em>The different covariate</em></p>
+<div id="vpc" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> VPC<a href="model-evaluation-makes-it-easy.html#vpc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A a <span style="color: red;">within-bin comparison</span> of the empirical distribution of the observations with the corresponding model-based predictions. Percentiles of the simulated data are compared to the corresponding percentiles of the observed data. The percentiles are calculated either for each unique value of the independent (x-axis) variable or for a bin across the independent variable. By calculating the percentiles of interest for each of the simulated replicates of the original dataset design, a <span style="color: red;">nonparametric confidence interval</span> can be generated for the predicted percentiles.</p>
+<p>There are three basic types of VPC.
+- scatter VPC
+This shows the observations along with simple prediction intervals</p>
+<ul>
+<li><p>percentile VPC
+This summarizes the distribution of observations with observation intervals so they can directly compare the prediction intervals and the observed intervals.</p></li>
+<li><p>confidence interval VPC
+This type shows the 95% CI interval around each of the prediction intervals obtained by simulation.</p></li>
+</ul>
+<p>Problems: if the VPC is performed in dataset with varied doses and varied time, the bin selected and the prediction interval will not be representative for the dataset included in the bin. Whenever the predictions within a bin differ largely due to different values of other independent variables (e.g, dose, covariates), the diagnosis may be hampered or misleading. In such cases, only a part of the variability observed in the a traditional VPC will be caused by the random effect. Apart from making it difficult to use these VPCs to diagnose the random effects, this can also lower the power of detecting a model misspecification in the structural model.</p>
+</div>
+<div id="pcvpc" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> pcVPC<a href="model-evaluation-makes-it-easy.html#pcvpc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A prediction corrected VPC that normalized the observation and prediction with the population prediction values. How to draw it?</p>
+<ul>
+<li>First to calculate the median of the predictions per bin (<span class="math inline">\(PRED_{bin}\)</span>).</li>
+<li>Then for the simulation dataset calculation the PRED relative to the <span class="math inline">\(PRED_{bin}\)</span>. Then for each PRED we need to multiply the fold difference.</li>
+<li>Then for the observation dataset calculate the PRED relative to the <span class="math inline">\(PRED_{bin}\)</span>, and for each DV we need to multiply the fold difference.</li>
+<li>The transformed simulations and observations are percentiles as the normal VPC</li>
+</ul>
+<p><img src="Figures/pcVPC.png" /><!-- --></p>
+<p>Figure 2 illustrates the conceptual benefit of pcVPC in application to data following dose adaptations correlated to the dependent variable. The observed data in the VPC show decreasing concentration variability with time due to dose adaptations. In contrast, the model-predicted interpercentile range increased since simulations based on the realized design do not maintain any correlation between dose alterations and the previous observed concentration. The pcVPC corrects for the dose adjustments and correctly indicates no discrepancy between the observations and the model prediction.</p>
+</div>
+<div id="npc-numerical-predictive-check" class="section level3 hasAnchor" number="2.2.3">
+<h3><span class="header-section-number">2.2.3</span> NPC Numerical predictive check<a href="model-evaluation-makes-it-easy.html#npc-numerical-predictive-check" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The vpc (Visual Predictive Check) tool and the npc (Numerical Predictive Check) are two closely related model diagnostics tools.It evaluates whether Observed percentiles are within the confidence interval of the corresponding predicted percentiles. A coverage plot for the NPC looks at different prediction intervals (PIs) for each data point and calculates the total number of data points in the data set lying outside of these PIs. The plot shows the relative amount of data points outside of their PI compared to the expected amount at that PI. In addition a confidence interval around these values are computed based on the simulated data.
+How to draw a NPC plot?</p>
+<ul>
+<li><p>The solid line is the The ratio between the observed and expected percentages of data above the upper and below the lower limits of the 0%, 20%, 40%, 60%, 80%, 90%. In which the expected percentages are calculated as (100-PI)/2. The observed data are calculated as:</p>
+<ol style="list-style-type: decimal">
+<li>identify prediction intervals: 0, 20, 40, 50, 60, 80, 90, 95% for each observation from n number of simulations</li>
+<li>calculate how many percentage of observations are above or below their own PIs.</li>
+</ol></li>
+<li><p>The CI (shade) is calculated by for each simulated points repeating the procedure as the observed data</p></li>
+</ul>
+<p>Just as in a VPC plot, a trend in the NPC coverage plot would indicate a misspecification of the structural, interindividual variability, or residual error model (Supplementary Figure S9).</p>
+<p>As NPC evaluates model misspecification on several PIs, it may provide additional information compared to the VPC, which only presents one selected PI. In addition, it compares each observation with its own simulated distribution, so normalization and stratification to handle the binning, as in the VPC, is not necessary. However, unlike VPC, which is a representation of observations and predictions vs. time, NPC loses the time dimension; therefore, it would not be able to point out at which time points the model overpredicted or underpredicted the data.</p>
+</div>
+<div id="npde" class="section level3 hasAnchor" number="2.2.4">
+<h3><span class="header-section-number">2.2.4</span> NPDE<a href="model-evaluation-makes-it-easy.html#npde" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Individual comparisons of each observation with the corresponding model-based prediction. The idea is that the cdf of each observation can be seen as the prediction discrepancy that should follow U(0,1). However, there is no analytical solution for the function of cdf of the observation. Therefore, mento-carlo simulation based on the model was used to mimic the probability density of the observation. And the percentile of the observation in the simulations can be approximated as the cdf. Below are the steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Predictive distribution function—generated using simulation of the model, k simulations for each observation have a normal distribution (x-axis: k simulations, y-axis: probability density)</p></li>
+<li><p>Cumulative distribution function—prediction discrepancy, percentile of an observation in the predictive distribution (e.g., one observation is 50% percentile) (x-axis: observation, y-axis: cumulative probability)</p></li>
+<li><p>Decorrelation, pd =&gt; pde, each observation has one pd/pde</p></li>
+<li><p>For large number of simulation, pde of all observation should follow a uniform distribution U(0,1). (x-axis: pde, y-axis: probability density)</p></li>
+<li><p>Normalized prediction distribution errors ( npde ): assume the cdf comes from a standard normal distribution, and Inverse function of normal cumulative density to get the npde (Z values)</p></li>
+</ol>
+<p><em>INTERPRETATION OF NPDE</em>
+<img src="Figures/NPDE_example_figure.jpg" /><!-- --></p>
+<p>Evaluation graphs using npde package (version 3.1).</p>
+<p>Top: distribution of the npde shown as a histogram (left) or a QQ-plot (right), with the blue area representing the prediction intervals obtained using simulations under the theoretical N(0,1) distribution</p>
+<p>Bottom: scatterplots of the npde versus the independent variable (left) and versus the predictions from the model (right). The prediction in the x-axis is obtained as the empirical mean of the corresponding simulations y for each observation.</p>
+<p>Dots: the dots representing the npde computed for this dataset.</p>
+<p>Lines: The lines show the evolution of three empirical percentiles (2.5, 50 and 97.5) of the npde corresponding to the observation (dark grey) compared to the npde corresponding to the model predictions(Y in simulation) (light grey). we compute pd and npde for each simulated dataset and then calculate the 2.5, 50 and 97.5th percentile to obtain prediction bands around selected percentiles of the observed pd and npde.</p>
+<p>The pink band corresponds to the prediction interval for the median of the npde (50th percentile) and the blue bands the prediction intervals for the 2.5 and 97.5th percentiles.</p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="references.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="preface.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/Model-simulation-made-it-easy.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

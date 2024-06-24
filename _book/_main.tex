@@ -1,0 +1,366 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{book}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
+\usepackage{booktabs}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\usepackage[]{natbib}
+\bibliographystyle{plainnat}
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={A Minimal Book Example},
+  pdfauthor={John Doe},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{A Minimal Book Example}
+\author{John Doe}
+\date{2024-06-24}
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\hypertarget{about}{%
+\chapter{About}\label{about}}
+
+This is a \emph{sample} book written in \textbf{Markdown}. You can use anything that Pandoc's Markdown supports; for example, a math equation \(a^2 + b^2 = c^2\).
+
+\hypertarget{usage}{%
+\section{Usage}\label{usage}}
+
+Each \textbf{bookdown} chapter is an .Rmd file, and each .Rmd file can contain one (and only one) chapter. A chapter \emph{must} start with a first-level heading: \texttt{\#\ A\ good\ chapter}, and can contain one (and only one) first-level heading.
+
+Use second-level and higher headings within chapters like: \texttt{\#\#\ A\ short\ section} or \texttt{\#\#\#\ An\ even\ shorter\ section}.
+
+The \texttt{index.Rmd} file is required, and is also your first book chapter. It will be the homepage when you render the book.
+
+\hypertarget{render-book}{%
+\section{Render book}\label{render-book}}
+
+You can render the HTML version of this example book without changing anything:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Find the \textbf{Build} pane in the RStudio IDE, and
+\item
+  Click on \textbf{Build Book}, then select your output format, or select ``All formats'' if you'd like to use multiple formats from the same book source files.
+\end{enumerate}
+
+Or build the book from the R console:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bookdown}\SpecialCharTok{::}\FunctionTok{render\_book}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+To render this example to PDF as a \texttt{bookdown::pdf\_book}, you'll need to install XeLaTeX. You are recommended to install TinyTeX (which includes XeLaTeX): \url{https://yihui.org/tinytex/}.
+
+\hypertarget{preview-book}{%
+\section{Preview book}\label{preview-book}}
+
+As you work, you may start a local server to live preview this HTML book. This preview will update as you edit the book when you save individual .Rmd files. You can start the server in a work session by using the RStudio add-in ``Preview book'', or from the R console:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bookdown}\SpecialCharTok{::}\FunctionTok{serve\_book}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{model-evaluation-makes-it-easy}{%
+\chapter{Model evaluation makes it easy}\label{model-evaluation-makes-it-easy}}
+
+\hypertarget{residuals-based-method}{%
+\section{Residuals-based method}\label{residuals-based-method}}
+
+(ref: Developing tools to evaluate non-linear mixed effect models: 20 years on the npde adventure)
+
+\hypertarget{prediction-error-difference-between-the-true-value-and-the-prediction-bias}{%
+\subsection{Prediction error (difference between the true value and the prediction, bias)}\label{prediction-error-difference-between-the-true-value-and-the-prediction-bias}}
+
+\begin{itemize}
+\tightlist
+\item
+  RMSE? (the magnitude of PE, imprecision)
+\end{itemize}
+
+Shortcomings:
+- Prediction error of population predictions or individual predictions?
+Population residuals
+Individual residuals, more focused on evaluation of the residual error model
+- Potential heteroscedasticity in the residual error model (magnitude of residuals varies across the range of observations)
+
+Solution:
+- weighted residuals (WRES), weighting the residuals using the expected variance of the prediction
+
+\hypertarget{wres}{%
+\subsection{WRES}\label{wres}}
+
+\[
+   WRES=\frac{\vec{y_{i}}-E_{FO}(\vec{y_{i}})}{ \sqrt{Cov_{FO}(\vec{y_{i})}}}
+\]
+The \(WRES\) should be \(N(0,1)\) as long as the model adequately describes the data and the model linearlization using FO is adequate to describe the model.
+
+Shortcomings: the performance of WRES for model evaluation in NLME has been consistently shown to be poor:
+- bias introduced by the first-order approximation, because WRES are calculated using the FO approximation. This is the case even if the model development process has taken place using the FOCE methods.
+- the true distribution is unknown.
+
+Solution: CWRES
+
+\hypertarget{cwres}{%
+\subsection{CWRES}\label{cwres}}
+
+A model diagnostics for the FOCE method
+
+\[
+   CWRES=\frac{\vec{y_{i}}-E_{FOCE}(\vec{y_{i}})}{ \sqrt{Cov_{FOCE}(\vec{y_{i})}}}
+\]
+
+The \(CWRES\) are computed in the same manner as the \(WRES\) but using the FOCE approximation to the model.
+
+\hypertarget{simulation-based-method}{%
+\section{Simulation-based method}\label{simulation-based-method}}
+
+\emph{Common problems:}
+- \emph{The choice of bins}. Within a bin there should always be an even distribution of the observation. If one bin has a series of observations that are outliers, then the observations will lie in either of the two ends of the prediction interval, making the plot a bit problematic.
+- \emph{The dose adjustment}. the random variability is always randomly sampled. While in the real clinical setting the next dose is aimed for
+- \emph{The different covariate}
+
+\hypertarget{vpc}{%
+\subsection{VPC}\label{vpc}}
+
+A a \textcolor{red}{within-bin comparison} of the empirical distribution of the observations with the corresponding model-based predictions. Percentiles of the simulated data are compared to the corresponding percentiles of the observed data. The percentiles are calculated either for each unique value of the independent (x-axis) variable or for a bin across the independent variable. By calculating the percentiles of interest for each of the simulated replicates of the original dataset design, a \textcolor{red}{nonparametric confidence interval} can be generated for the predicted percentiles.
+
+There are three basic types of VPC.
+- scatter VPC
+This shows the observations along with simple prediction intervals
+
+\begin{itemize}
+\item
+  percentile VPC
+  This summarizes the distribution of observations with observation intervals so they can directly compare the prediction intervals and the observed intervals.
+\item
+  confidence interval VPC
+  This type shows the 95\% CI interval around each of the prediction intervals obtained by simulation.
+\end{itemize}
+
+Problems: if the VPC is performed in dataset with varied doses and varied time, the bin selected and the prediction interval will not be representative for the dataset included in the bin. Whenever the predictions within a bin differ largely due to different values of other independent variables (e.g, dose, covariates), the diagnosis may be hampered or misleading. In such cases, only a part of the variability observed in the a traditional VPC will be caused by the random effect. Apart from making it difficult to use these VPCs to diagnose the random effects, this can also lower the power of detecting a model misspecification in the structural model.
+
+\hypertarget{pcvpc}{%
+\subsection{pcVPC}\label{pcvpc}}
+
+A prediction corrected VPC that normalized the observation and prediction with the population prediction values. How to draw it?
+
+\begin{itemize}
+\tightlist
+\item
+  First to calculate the median of the predictions per bin (\(PRED_{bin}\)).
+\item
+  Then for the simulation dataset calculation the PRED relative to the \(PRED_{bin}\). Then for each PRED we need to multiply the fold difference.
+\item
+  Then for the observation dataset calculate the PRED relative to the \(PRED_{bin}\), and for each DV we need to multiply the fold difference.
+\item
+  The transformed simulations and observations are percentiles as the normal VPC
+\end{itemize}
+
+\includegraphics{Figures/pcVPC.png}
+
+Figure 2 illustrates the conceptual benefit of pcVPC in application to data following dose adaptations correlated to the dependent variable. The observed data in the VPC show decreasing concentration variability with time due to dose adaptations. In contrast, the model-predicted interpercentile range increased since simulations based on the realized design do not maintain any correlation between dose alterations and the previous observed concentration. The pcVPC corrects for the dose adjustments and correctly indicates no discrepancy between the observations and the model prediction.
+
+\hypertarget{npc-numerical-predictive-check}{%
+\subsection{NPC Numerical predictive check}\label{npc-numerical-predictive-check}}
+
+The vpc (Visual Predictive Check) tool and the npc (Numerical Predictive Check) are two closely related model diagnostics tools.It evaluates whether Observed percentiles are within the confidence interval of the corresponding predicted percentiles. A coverage plot for the NPC looks at different prediction intervals (PIs) for each data point and calculates the total number of data points in the data set lying outside of these PIs. The plot shows the relative amount of data points outside of their PI compared to the expected amount at that PI. In addition a confidence interval around these values are computed based on the simulated data.
+How to draw a NPC plot?
+
+\begin{itemize}
+\item
+  The solid line is the The ratio between the observed and expected percentages of data above the upper and below the lower limits of the 0\%, 20\%, 40\%, 60\%, 80\%, 90\%. In which the expected percentages are calculated as (100-PI)/2. The observed data are calculated as:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    identify prediction intervals: 0, 20, 40, 50, 60, 80, 90, 95\% for each observation from n number of simulations
+  \item
+    calculate how many percentage of observations are above or below their own PIs.
+  \end{enumerate}
+\item
+  The CI (shade) is calculated by for each simulated points repeating the procedure as the observed data
+\end{itemize}
+
+Just as in a VPC plot, a trend in the NPC coverage plot would indicate a misspecification of the structural, interindividual variability, or residual error model (Supplementary Figure S9).
+
+As NPC evaluates model misspecification on several PIs, it may provide additional information compared to the VPC, which only presents one selected PI. In addition, it compares each observation with its own simulated distribution, so normalization and stratification to handle the binning, as in the VPC, is not necessary. However, unlike VPC, which is a representation of observations and predictions vs.~time, NPC loses the time dimension; therefore, it would not be able to point out at which time points the model overpredicted or underpredicted the data.
+
+\hypertarget{npde}{%
+\subsection{NPDE}\label{npde}}
+
+Individual comparisons of each observation with the corresponding model-based prediction. The idea is that the cdf of each observation can be seen as the prediction discrepancy that should follow U(0,1). However, there is no analytical solution for the function of cdf of the observation. Therefore, mento-carlo simulation based on the model was used to mimic the probability density of the observation. And the percentile of the observation in the simulations can be approximated as the cdf. Below are the steps:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Predictive distribution function---generated using simulation of the model, k simulations for each observation have a normal distribution (x-axis: k simulations, y-axis: probability density)
+\item
+  Cumulative distribution function---prediction discrepancy, percentile of an observation in the predictive distribution (e.g., one observation is 50\% percentile) (x-axis: observation, y-axis: cumulative probability)
+\item
+  Decorrelation, pd =\textgreater{} pde, each observation has one pd/pde
+\item
+  For large number of simulation, pde of all observation should follow a uniform distribution U(0,1). (x-axis: pde, y-axis: probability density)
+\item
+  Normalized prediction distribution errors ( npde ): assume the cdf comes from a standard normal distribution, and Inverse function of normal cumulative density to get the npde (Z values)
+\end{enumerate}
+
+\emph{INTERPRETATION OF NPDE}
+\includegraphics{Figures/NPDE_example_figure.jpg}
+
+Evaluation graphs using npde package (version 3.1).
+
+Top: distribution of the npde shown as a histogram (left) or a QQ-plot (right), with the blue area representing the prediction intervals obtained using simulations under the theoretical N(0,1) distribution
+
+Bottom: scatterplots of the npde versus the independent variable (left) and versus the predictions from the model (right). The prediction in the x-axis is obtained as the empirical mean of the corresponding simulations y for each observation.
+
+Dots: the dots representing the npde computed for this dataset.
+
+Lines: The lines show the evolution of three empirical percentiles (2.5, 50 and 97.5) of the npde corresponding to the observation (dark grey) compared to the npde corresponding to the model predictions(Y in simulation) (light grey). we compute pd and npde for each simulated dataset and then calculate the 2.5, 50 and 97.5th percentile to obtain prediction bands around selected percentiles of the observed pd and npde.
+
+The pink band corresponds to the prediction interval for the median of the npde (50th percentile) and the blue bands the prediction intervals for the 2.5 and 97.5th percentiles.
+
+\hypertarget{preface}{%
+\chapter{Preface}\label{preface}}
+
+To really understand and develop a good model. There are some parts of knowledge that you need to know, which are related to different phase of modeling building process. All these models form the equation of likelihood function of each observation in a popPK analysis.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Structural model
+  In most cases, some information is available beforehand about the structural model based on knowledge on the underlying system. E.g., PK equations
+\item
+  Inter-individual variability:
+  Information about IIV can also be available in terms of physiological features of the study population such as polymorphism in metabolic enzymes or age-related alterations of particular organs.
+\item
+  residual variability
+  That part accounts for all remaining variability which is not explained by the structural or parameter-variability model parts. This RUV arises for example from physiological intra-individual variation, assay error, errors in independent variables and model misspecification.
+\end{enumerate}
+
+All of this will form the mathematical formula that are assessed to evaluate the model fit. In NONMEM, The Nonmem methodology was based on maximum likelihood methods that use various approximations to compute and minimize the objective function (-2 log likelihood of the model parameters given the data) in order to estimate population PK and PK-PD model parameters.
+
+  \bibliography{book.bib,packages.bib}
+
+\end{document}
