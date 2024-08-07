@@ -1,0 +1,8 @@
+# New AI approach
+## Neural ordinary differential equations (NODEs)
+NODE is basically an ordinary differential equation (ODE), the difference is that the right-hand side of the ODE is not described with mechanism-based functions, as it is tipically done in PMX, but it consistes of neural networks (NNs)
+
+** Criticisms**
+- They are "black box" models
+- They have poor extrapolation capabilities
+- They do not include prior clinical knowledge

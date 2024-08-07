@@ -1,0 +1,139 @@
+# Statistics
+
+## Probability density function (pdf)
+
+Pdf is f(x) which describes the shape of the distribution (uniform, exponential, or normal distribution). The distribution of a continuous random variable Y is defined by a probability density function (pdf ), f(y). In a more precise sense, the PDF is used to specify the probability of the random variable falling within a particular range of values, as opposed to taking on any one value. This probability is given by the integral of this variable's PDF over that range—that is, it is given by the area under the density function but above the horizontal axis and between the lowest and greatest values of the range. The probability density function is non-negative everywhere, and the area under the entire curve is equal to 1. If all the random variables are discrete, then they are governed by a joint probability mass function; if all the random variables are continuous, then they are governed by a joint probability density function.
+
+**Normal distribution pdf** 
+
+$$
+f(x)=\frac{1}{\alpha2\pi}e^{-\frac{1}{2}(\frac{x-u}{\alpha})²}
+$$ 
+**Continuous uniform distribution pdf**
+$$
+f(x)=\begin{cases}
+\frac{1}{b-a} \ for \ a \le x \le b \\
+0 \ for \ a <0 \ or \ x> b
+\end{cases}
+$$
+
+**Binomial distribution**
+$$
+f(x)=\begin{pmatrix} n \\ x \end{pmatrix} (p)^{x}(1-p)^{(n-x)}  \ \ \ \ for\ x=0,1,2,...,n
+$$
+## Culmulative distribution function (cdf)
+Cdf are used to calculate the area under the curve to left from a point of interest. It is used to evaluate the accumulated probability. It is defined as the probability of the set of random variables all falling at or below the specified values of y.
+Example \\
+For the exponential distribution, we have for y>0
+$$
+F(y)=P(Y \le y)= \int_{0}^{y} \frac{1}{\mu}e^{-w/\mu}dw=1-e^{-y/\mu}
+$$
+
+```{r cdf,echo=FALSE, eval=TRUE}
+knitr::include_graphics("Figures/cdf.jpg")
+```
+## Inverse cumulative distribution function
+The inverse cumulative distribution function is also called quantile function. It is very important for calculating the quantile values of a variable. Itś basically just reverse x and y axis for cdf plot. It answers the question if you want to get 0.5 percent of cdf, what sample value you would get.
+
+```{r cdf inverse,echo=FALSE, eval=TRUE}
+knitr::include_graphics("Figures/cdf_inverse.jpg")
+```
+
+## The definition of mean and variance from pdf
+**Mean**
+$$
+E[X]=\int_{\inf}^{\inf} x f(x)dx
+$$
+**Variance**
+$$
+Var[x]=E[(X-\mu)^{2}]=\int_{\inf}^{\inf} (x-\mu)^{2} \times f(x)dx=E[X^{2}]-(E(X))^{2} \\\\
+E[X^{2}] =\int_{\inf}^{\inf} x^{2} \times f(x)dx
+$$
+## Probability
+
+**Probability**
+Probability that event A happens, denoted as P(A). This notation is different from f(x) which is the probability function
+
+**Joint probability**
+Probability event A and B happens simultaneously, denotd as P(A,B)
+
+
+**Conditional probability**
+P(A|B)= probability that event A happens in the presense of a B event.
+
+**Marginal probability**
+Probability of A event irrespective of the outcome of B
+For continuous variable, marginal probability of y1= prob of Y1=y1 (no matter what value Y2 is)
+The marginal distribution of A can be calculated as the sum of conditional probability P(A|B) for all possible B values. That's what the likelihood of a popPK is 
+
+$$
+L(\boldsymbol{\Theta},\boldsymbol{\Sigma}, \boldsymbol{\Omega})= f(\boldsymbol{y})=\int f(\boldsymbol{y,n}) d\boldsymbol{\eta}
+$$
+**Relationship between joint, conditional and marginal probability**
+The joint probability of A and B is the conditional probability of A given B times the probability of B
+
+**Multivariate distributions**
+Multivariate distribution is synonym to the joint distribution. To calculate the joint distribution of two variables, we need to define whether the two variables are dependent. 
+We say two random variables X1 and X2 are independent if their joint pdf is equal to the product of their marginal pdfs.
+If not, then they are assumed to be dependent. Then we need to define the conditional distribution of one given the other has occured.
+Correlation coefficient as a way of quantifying the extent to which two randowm variable are linearly related.
+
+Continuous Bivariate Distribution
+
+## Analytical and numetric integration
+Analytically integration finds the exact are under a curve between 2 bounds. While numerical integration approximates the area under a curve between 2 points through numerical methods.
+
+### Numerical integartion 
+In analysis, numerical integration comprises a broad family of algorithms for calculating the numerical value of a definite integral.The basic problem in numerical integration is to compute an approximate solution to a definite integral to a given degree of accuracy. 
+
+
+Common numerical integration methods:
+- Simpson's Rule: 
+- Trapezoid rule
+- Quadratures
+    - 
+** Deterministic numerical integration **
+The methods for one-dimensional case are called quadrature and for multidimensional case curbature.
+
+The approximation of the function f(x) by an interpolating polynomial. A fundamental property of the methods is that they are constructed in a way, so that the integral of the weighted interpolating polynomial can be evaluated exactly by calculating the sum.
+Numerical integration can also be classified into deterministic and stochastic geometric methods.
+
+
+## Approximations to the log-likelihood in nonlinear mixed-effects model
+(ref: Approximations to the Log-Likelihood Function in the Nonlinear Mixed-Effects Model)
+- LME approximation
+- Laplacian approximation
+- Monte Carlo EM (MCEM) 
+- Importance sampling
+- Stochastic approximation expectation maximization
+- Gaussian quadrature
+
+There exists a close relationship between the Laplacian approximation, importance sampling, and a Gausssian quadrature rule centered around the conditional modes of the random effects of $b$.
+
+### LME approximation
+The first approximation we consider is from an algorithm proposed by Lindstrom and Bates (1990) for estimating the parameters in model (1.1). Their algorithm proceeds i two alternating steps, a penalized nonlinear least squares (PNLS) step and a linear mixed effects (LME) step, as described in the following. The LME step creates an approximation to the log-likelihood. It is this approximation that we call the LME approximation. it has been shown that the LME approximation to the restricted log-likelihood is equivaleng to Laplaxian approximation to the integral when a flt prior is assumed for $\beta$
+
+- FO The model is linearized about the mean of the random parameters in the model (zero) using the
+Taylor series approximation.
+- FOCE The FOCE method uses a more advanced method of model linearization conditioning the linearization of the model around each individual_s empirical Bayes (post-hoc) estimates of the between-subject variability random effects
+
+### Laplacian approximation
+Laplacian approximations are frequently used in Bayesian inference to estimate marginal posterior densities and predictive distributions. These techniques can also be used for the integration considered here.
+
+### Importance sampling approximation
+Importance sampling provides a simple and efficient way of performing Monte Carlo integration. The critical step for the success of this method is the choice of an importance distribution from which the sample is drawn and the importance weights calculated. 
+
+### Gaussian Quadrature approximation
+This method seeks to obtain the best numerical estimate of an integral by picking optimal abscissas $x_{i}$ at which to evaluate the function $f(x)$. The fundamental theorem of Gaussian Quadrature states that the optimal abscissas of the m-point Gaussian quadrature formulas are precisely the roots of orthogonal polynomial for the same interval and weighting function. Gaussian quadrature is optimal because it fits all polynomials up to degree $2m-1$ exactly.
+
+The adaptive Gaussian quadrature approximation very closely resembles that obtained for importance sampling. The basic difference is that the former uses fixed abscissas and weights, but the latter allows them to be determined by a pseudo-random mechanism.
+ 
+
+#### What is numerical quadrature
+It is the approximation of a definite integral of a continuous function f by a weighted linear combination of function evaluation, i.e.,
+$$
+
+$$
+#### Hermite-Gauss quadrature
+
+Also called Hermite quadrature, is a Gaussian quadrature over the interval $(-\infty,+\infty)$ with weighting function $W(x)=e^{-x^{2}}$

@@ -1,0 +1,112 @@
+# PD makes it easy
+Pharmacokinetic models are by definition developed using continuous drug concentration data, while pharmacodynamic data might come in the form of continuous, binary, categorical, multiple-dimensional or (recurring) event type data. Each of these pharmacodynamic data types demands its own set of pharmacometric analysis techniques. They can also be classified as quantitative (continuous and discrete) and categorical (nominal, ordinal and binary) variables.
+
+## Continuous data
+### Emax model
+
+## Binary data
+
+** How does the variable look like? **
+Describe the two categories as Yes and No
+
+** Probability of binary data**
+It follows the Bernoulli Distribution
+$$
+Pr (z=1) =\pi \ \ Prof \ of\ yes \\
+Pr (z=0) = 1-\pi \ \ Prof\ of\ no \\
+Pr (z=r) = \pi^{r} (1-\pi)^{1-r} =0.1
+$$
+
+** Likelihood function**
+Assuming independence of observations. Note the $\pi$ is not the 3.14 but the probability
+
+$$
+L (\pi) =\prod_{i=1}^{n}\pi^{r}(1-\pi)^{1-r} \ \ r=0,1
+$$
+
+** Transformation of $\pi$ **
+
+Transform $\pi$ from(0,1) to (-$\infty$,+$\infty$) and model the transformed value to ensure that model predicted probability lies in (0,1). This transformation enables to add covariate effect and eta on the $\pi$ that is on (-$\infty$,+$\infty$) scale.
+
+- Logit $logit (\pi)= log(\frac{\pi}{1-\pi})$ 
+- Probit $probit(\pi)=\phi^{-1}(\pi)$
+- log-log $log(-log(\pi_{i}))$
+- Complementary log-log $log(-log(1-\pi_{i}))$
+
+The most commonly used one is the logit transformation when we model the whole $logit(\pi)$ as parameter, to transform it back to the probability in the likelihood function we used:
+$$
+\pi=\frac{exp(\pi)}{1+exp(\pi)}
+$$
+
+**Logistic regression** 
+This is just the model with logit transformation and with covariates on it
+
+## Ordered categorical data
+Ordered catogorical data like pain scales cannon model probabilities diretly, because parameters can´t ne constrained to assure that probabilities add to one. But cumulative probabilies can be modelled. For example Y=1,2,3
+
+### BLQ as categorical data
+This is mostly used when we model continuous and categorical data together. Within one patient, for normal concentrations, the likelihood is just the normal one
+$$
+l(t)=\frac{1}{2\pi g(t)}exp(-\frac{\frac{1}{2}(y(t)-f(t))^{2}}{g(t)})
+$$
+
+For BLQ samples,for a censored observatopm at time t, it is
+$$
+l(t)=\Phi((QL-f(t))/\sqrt{g(t)})
+$$
+which is the probability that the observaation is BQL (i.e., is between $-\infty$ and QL). The likelihood for all the data is the product of the l(t) over all times. Minus twice the logarithm of l(t) for an uncensored observations. In this equation $\Phi$ means cdf.
+
+## Time to event data (survival analysis)
+
+We used this analysis when we care about the time from expousre to death rather then just care whether the event happen or not. Time-to-event(TTE) data is unique because the outcome of interest is not only whether or not an event occured, but also when the event occured.
+**Compared to other PD analysis**
+Traditional methods of logistic and linear regression are not suited to be able to include both and event and time aspects as the outcome in the model.
+Traditional regression methods also are not equipped to handle censoring, a special type of missing data that occurs in time-to-event analysis when subjects do not experience the event of interest during the follow-up time.
+
+why not compare mean time-to-event between treatment groups using a t-test or linear regression?
+-- ignore censoring
+
+Why not compare proportion of events in your groups using risk/odds ratios or logistic regression?
+-- ignores time
+
+
+**Type of event**
+TTE= the event occurs once per individual
+RTTE=repeated time to event that can occur several times per individual
+
+**TIME**
+For some subjects, we will know their exact time of event
+
+Censoring
+- Right: For subjects with no event we only know that their survival time at least qual to some time t=end of experiment
+- Interval: some subjects we may only know that they had an event within an event of time
+-Left: we konw that time to event is less than some values
+
+#### Survival analysis, Survival and Hazard function, important equations
+Time $t$ and $T$
+Suppouse $T$ is a non-negative random variable representing the time until some event of inrest. For example, $T$ might denote:
+- The time from diagnosis of a disease until death
+- the time between administration of a vaccin and development of an infection
+- The time from the start of treatment of a smptomatic disease
+
+We shall assume that $T$ is continuous unless we specify otherwise.
+
+- Density function, $f(t)$: the probability of an event
+- Cumulative function of density function, F(t):  $F(t)= P(T\le t)$
+- Survival function S(t), survival function simply indicates the probability that event of interest has not yet occured by time t; Thus if $T$ denotes time until death, S(t) denotes probability of surviving beyond time t: $S(t)=1-F(t)=P(T > t)$
+- Hazard function $h(t)$, is a conditional density, given the evenet in qeustion has not occured prior to time t: $h(t)= f(t)/S(t)$
+- Culmulative Hazrd function $H(t)$: $H(t)=\int_{0}^{T} h(t)dt= \int_{0}^{T} f(t)/S(t)dt= \int_{0}^{T} \frac{\frac{d}{dt}F(t)}{S(t)}dt=\int_{0}^{T} \frac{\frac{d}{dt}(1-S(t))}{S(t)}dt=\int_{0}^{T}\frac{-S'(t)}{S(t)}=-ln(S(t))$
+
+**Types of hazard equations**
+- Weibull
+- Gompertz
+
+
+When we model, it seems we just model the hazard equation
+Definition: the instantaneous risk of event occuring at any time t, conditional on survival to that time. Letś say sb is certainly going to die in 5 years(f(t)=100%), if he/she hasnt died at the third year, then the hazard is going to be 50% by 3 years. Number of deaths one can expect to experience per year.
+
+**The likelihhod function**
+In analysi we are actually modelling two likelihhod function
+when DV=0, at time t, Survival function=S(t)
+the probability of individual survive beyond time t, often based on the hazard function, h(t)
+when DV=1, at time t, probability density function f(t)

@@ -6,4 +6,7 @@ language:
     # File manifest
 rmd_files: [ "index.Rmd",
            "01_Preface.Rmd",
-           "02_Model-simulation-made-it-easy.Rmd" ]
+           "02_Model-simulation-made-it-easy.Rmd",
+           "03_statistics-made-it-easy.Rmd",
+           "06_Variability.Rmd"
+            ]

@@ -1,0 +1,29 @@
+# Variability makes it easy
+## Inter-individual variability
+* Inter-individual variability *-- three ways of representation
+- Normal distribution $Y=THETA+ETA$
+- log-normal distribution $Y=THETA*EXP(ETA)$
+- proportional distribution $THETA*(1+ETA)$
+
+## Describing the magnitude of the variability
+
+
+## Updates of other method
+(ref: https://www.page-meeting.org/default.asp?abstract=10864)
+- Gauss-Hermite, which is a form of Gaussian quadrature for approximating the values of integrals of the following kind
+
+When to use it and How it works?
+
+* Modeling with sparse data*: With sparse data (when the number of observations per each subject is less than the number of structural parameters, in which case the BSV and residual error cannot be estimated with acceptable precision). 
+
+Usually we assume the distribution of the model parameters among subjects is continuous.
+The cohort population assumes that the distribution of model parameters among subjects is discrete.
+
+
+What is cohort population?
+- An example of one cohort population: Naive pool data where the structural model parameters have the same values for all subjects.
+- The Gauss quadrature rules naturally define the distribution of model parameters for a cohort population as the sum of weighted delta functions centered at the quadrature nodes.We applied the Gauss-Hermite cohort population to approximate the multivariate normal distribution
+
+What is Gauss-Hermite probability density function and the weights and the nodes
+
+

@@ -1,0 +1,28 @@
+# Exploratary analysis
+
+# model diagnosis
+
+## OFV
+How often this is driven by few IDs
+OFV can only make sure the overall differences is 0 and with the higher likelihhod privided that the assumption is correct.
+OFV can also be easily impacted by OFV
+However, normally we also care about the trend with e.g. TIME, Age, that's why we need to consider the other diagnositc plots
+## CWRES
+in CWRES plot we can see two things, the median trend and the range of CWRES
+I have the assumption the overall the model with smaller OFV will has lower CWRES but not necessarily has no trend
+## VPC
+VPC combines not only the IIV and also the residual error.
+its good for test the simulation for both median and variability
+but is less sensitive for the model misspecification
+## NPC
+
+## NPDE
+
+# Covariate effect
+
+When we detect a significant covaraiate effect, we might want to check the individual contribution of OFV to check if the significance is contributed by only one ID. 
+When it is determined by one or two IDs, there is still something that we need to consider
+
+1. If the covariate that contribute from that ID is unique with that ID, if so, then maybe there is still an impact
+2. If the covaraite that contribute from that ID is not unique, then first check if the trend of this covariate also exists in the other IDs, 
+because NONMEM may want to over correct the outlier
